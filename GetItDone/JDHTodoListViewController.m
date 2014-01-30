@@ -10,6 +10,8 @@
 
 @interface JDHTodoListViewController ()
 
+@property (strong, nonatomic) NSMutableArray *todos;
+
 @end
 
 @implementation JDHTodoListViewController
@@ -21,6 +23,7 @@
         // Custom initialization
         self.navigationItem.title = @"Get it done";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didTapAddButton)];
+        self.todos = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -36,6 +39,23 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)didTapAddButton {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New To do" message:@"Enter a to do item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == [alertView firstOtherButtonIndex]) {
+        NSString *input = [[alertView textFieldAtIndex:0] text];
+        [self.todos addObject:input];
+        
+        // for printing out the array
+        // NSLog(@"%@", _todos);
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -46,14 +66,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 0;
 }
