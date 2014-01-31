@@ -20,6 +20,9 @@
 		84A6AB211898098500062C95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84A6AB1F1898098500062C95 /* InfoPlist.strings */; };
 		84A6AB231898098500062C95 /* GetItDoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A6AB221898098500062C95 /* GetItDoneTests.m */; };
 		84A6AB2E189809CB00062C95 /* JDHTodoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A6AB2D189809CB00062C95 /* JDHTodoListViewController.m */; };
+		84BF3BB1189B5B4000A2A6B0 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BF3BB0189B5B4000A2A6B0 /* CustomCell.xib */; };
+		84BF3BB3189B5CF900A2A6B0 /* avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84BF3BB2189B5CF900A2A6B0 /* avatar.jpg */; };
+		84BF3BB6189B5E6400A2A6B0 /* JDHCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BF3BB5189B5E6400A2A6B0 /* JDHCustomCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,10 @@
 		84A6AB221898098500062C95 /* GetItDoneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetItDoneTests.m; sourceTree = "<group>"; };
 		84A6AB2C189809CB00062C95 /* JDHTodoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDHTodoListViewController.h; sourceTree = "<group>"; };
 		84A6AB2D189809CB00062C95 /* JDHTodoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDHTodoListViewController.m; sourceTree = "<group>"; };
+		84BF3BB0189B5B4000A2A6B0 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		84BF3BB2189B5CF900A2A6B0 /* avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.jpg; sourceTree = "<group>"; };
+		84BF3BB4189B5E6400A2A6B0 /* JDHCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDHCustomCell.h; sourceTree = "<group>"; };
+		84BF3BB5189B5E6400A2A6B0 /* JDHCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDHCustomCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,12 +117,16 @@
 		84A6AB031898098500062C95 /* GetItDone */ = {
 			isa = PBXGroup;
 			children = (
+				84BF3BB2189B5CF900A2A6B0 /* avatar.jpg */,
 				84A6AB0C1898098500062C95 /* JDHAppDelegate.h */,
 				84A6AB0D1898098500062C95 /* JDHAppDelegate.m */,
 				84A6AB0F1898098500062C95 /* Images.xcassets */,
 				84A6AB041898098500062C95 /* Supporting Files */,
 				84A6AB2C189809CB00062C95 /* JDHTodoListViewController.h */,
 				84A6AB2D189809CB00062C95 /* JDHTodoListViewController.m */,
+				84BF3BB0189B5B4000A2A6B0 /* CustomCell.xib */,
+				84BF3BB4189B5E6400A2A6B0 /* JDHCustomCell.h */,
+				84BF3BB5189B5E6400A2A6B0 /* JDHCustomCell.m */,
 			);
 			path = GetItDone;
 			sourceTree = "<group>";
@@ -225,6 +236,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BF3BB3189B5CF900A2A6B0 /* avatar.jpg in Resources */,
+				84BF3BB1189B5B4000A2A6B0 /* CustomCell.xib in Resources */,
 				84A6AB081898098500062C95 /* InfoPlist.strings in Resources */,
 				84A6AB101898098500062C95 /* Images.xcassets in Resources */,
 			);
@@ -248,6 +261,7 @@
 				84A6AB0A1898098500062C95 /* main.m in Sources */,
 				84A6AB2E189809CB00062C95 /* JDHTodoListViewController.m in Sources */,
 				84A6AB0E1898098500062C95 /* JDHAppDelegate.m in Sources */,
+				84BF3BB6189B5E6400A2A6B0 /* JDHCustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +462,7 @@
 				84A6AB281898098500062C95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84A6AB291898098500062C95 /* Build configuration list for PBXNativeTarget "GetItDoneTests" */ = {
 			isa = XCConfigurationList;
@@ -456,6 +471,7 @@
 				84A6AB2B1898098500062C95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

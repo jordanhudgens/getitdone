@@ -7,6 +7,7 @@
 //
 
 #import "JDHTodoListViewController.h"
+#import "JDHCustomCell.h"
 
 @interface JDHTodoListViewController ()
 
@@ -79,16 +80,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Banana";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"CustomCell";
+    JDHCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        NSArray *objects = [[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:nil options:nil];
+        cell = [objects lastObject];
     }
     
-    cell.textLabel.text = self.todos[indexPath.row];
+    cell.label.text = self.todos[indexPath.row];
+    cell.imageView.clipsToBounds = YES;
+    
+    CGSize size = CGSizeMake(290, CGFLOAT_MAX);
+    
+    NSAttributedString *aString = [[NSAttributedString alloc] initWithString:self.todos[indexPath.row]];
+    
+    CGRect rect = [aString boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
+    
+    [cell setBounds:CGRectMake(0, 0, cell.bounds.size.width, 200)];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize size = CGSizeMake(290, CGFLOAT_MAX);
+    NSAttributedString *aString = [[NSAttributedString alloc] initWithString:self.todos[indexPath.row]];
+    CGRect rect = [aString boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading context:nil];
+    
+    return 200;
 }
 
 /*
