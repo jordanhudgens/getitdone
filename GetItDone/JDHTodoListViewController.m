@@ -25,7 +25,14 @@
         // Custom initialization
         self.navigationItem.title = @"Get it done";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didTapAddButton)];
-        self.todos = [[NSMutableArray alloc] init];
+        
+        self.todos = [NSUserDefaults.standardUserDefaults objectForKey:@"todos"];
+        
+        if (!self.todos) {
+            self.todos = [[NSMutableArray alloc] init];
+        }
+        
+        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }
     return self;
 }
@@ -52,6 +59,11 @@
     if (buttonIndex == [alertView firstOtherButtonIndex]) {
         NSString *input = [[alertView textFieldAtIndex:0] text];
         [self.todos addObject:input];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.todos forKey:@"todos"];
+        [userDefaults synchronize];
+        
         [self.tableView reloadData];
         
         // for printing out the array
@@ -107,6 +119,11 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.todos removeObjectAtIndex:indexPath.row];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.todos forKey:@"todos"];
+        [userDefaults synchronize];
+        
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
     }   
