@@ -7,6 +7,7 @@
 //
 
 #import "JDHTodoListViewController.h"
+#import "JDHCreateTodoViewController.h"
 
 @interface JDHTodoListViewController ()
 
@@ -49,9 +50,13 @@
 }
 
 - (void)didTapAddButton {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New To do" message:@"Enter a to do item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alertView show];
+    JDHCreateTodoViewController *createVC = [[JDHCreateTodoViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:createVC];
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
+    
+    //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New To do" message:@"Enter a to do item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+    //    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    //    [alertView show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
