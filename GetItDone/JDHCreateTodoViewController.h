@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JDHCreateTodoViewController : UIViewController<UITextFieldDelegate>
+@protocol JDHCreateTodoViewControllerDelegrate
+@end
 
+@interface JDHCreateTodoViewController : UIViewController<UITextFieldDelegate>
+@property (weak, nonatomic) id<JDHCreateTodoViewControllerDelegrate>delegate;
 @end

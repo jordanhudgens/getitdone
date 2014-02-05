@@ -81,4 +81,12 @@
     return YES;
 }
 
+- (void)didTapDoneButton {
+    [self.delegate createTodo:self.todoInput.text withDueDate:self.dueDate];
+}
+
+- (void)didTapCancelButton {
+    [self.delegate didCancelCreatingNewTodo];
+}
+
 @end
