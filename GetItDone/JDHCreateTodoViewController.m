@@ -27,7 +27,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemCancel target:self action:@selector(didTapCancelButton)];
     
     [self renderTodoText];
-    //[self renderDueDate];
+    [self renderDueDate];
 }
 
 - (void)renderTodoText {
@@ -47,6 +47,32 @@
                                       CGRectGetWidth(self.view.frame) - (40),
                                       40);
     [self.view addSubview:self.todoInput];
+}
+
+- (void)renderDueDate {
+    CGRect dueDateLabelFrame = CGRectMake(CGRectGetMinX(self.todoInput.frame), CGRectGetMaxY(self.todoInput.frame) + 30, 0, 0);
+    UILabel *dueDateLabel = [[UILabel alloc] initWithFrame:dueDateLabelFrame];
+    dueDateLabel.text = @"Due date:";
+    dueDateLabel.font = [UIFont boldSystemFontOfSize:UIFont.systemFontSize];
+    [dueDateLabel sizeToFit];
+    [self.view addSubview:dueDateLabel];
+    
+    self.dueDateInput = [[UITextField alloc] init];
+    self.dueDateInput.borderStyle = UITextBorderStyleRoundedRect;
+    self.dueDateInput.placeholder = @"Due date";
+    self.dueDateInput.clearButtonMode = UITextFieldViewModeUnlessEditing;
+    self.dueDateInput.delegate = self;
+    
+    CGRect dueDateFrame = self.todoInput.frame;
+    dueDateFrame.origin.y = CGRectGetMaxY(dueDateLabel.frame) + 5;
+    self.dueDateInput.frame = dueDateFrame;
+    
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    [datePicker addTarget:self action:@selector(didChangeDate:) forControlEvents:UIControlEventValueChanged];
+    self.dueDateInput.inputView = datePicker;
+    
+    [self.view addSubview:self.dueDateInput];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
