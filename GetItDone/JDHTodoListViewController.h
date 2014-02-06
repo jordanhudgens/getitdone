@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "JDHCreateTodoViewController.h"
 
-@interface JDHTodoListViewController : UITableViewController<UIAlertViewDelegate, JDHCreateTodoViewControllerDelegrate>
+@interface JDHTodoListViewController : UITableViewController<UIAlertViewDelegate, JDHCreateTodoViewControllerDelegate>
 
 @end

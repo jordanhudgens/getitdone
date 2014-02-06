@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol JDHCreateTodoViewControllerDelegrate
+@protocol JDHCreateTodoViewControllerDelegate
+- (void)createTodo:(NSString *)todo withDueDate:(NSDate *)dueDate;
+- (void)didCancelCreatingNewTodo;
 @end
 
 @interface JDHCreateTodoViewController : UIViewController<UITextFieldDelegate>
-@property (weak, nonatomic) id<JDHCreateTodoViewControllerDelegrate>delegate;
+@property (weak, nonatomic) id<JDHCreateTodoViewControllerDelegate>delegate;
+
+
 @end

@@ -22,10 +22,9 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"New To-Do";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(didTapDoneButton)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemCancel target:self action:@selector(didTapCancelButton)];
-    
+
     [self renderTodoText];
     [self renderDueDate];
 }
@@ -87,6 +86,11 @@
 
 - (void)didTapCancelButton {
     [self.delegate didCancelCreatingNewTodo];
+}
+
+- (void)didChangeDate:(id)sender
+{
+    // waiting to be implemented
 }
 
 @end
