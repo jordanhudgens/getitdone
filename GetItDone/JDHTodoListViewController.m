@@ -50,9 +50,9 @@
 
 - (void)didTapAddButton {
     JDHCreateTodoViewController *createVC = [[JDHCreateTodoViewController alloc] init];
-    //UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:createVC];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:createVC];
     createVC.delegate = self;
-    [self.navigationController presentViewController:createVC animated:YES completion:nil];
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -92,14 +92,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Banana";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-    
-    cell.textLabel.text = self.todos[indexPath.row];
+	
+    cell.textLabel.text = self.todos[indexPath.row][@"text"];
     
     return cell;
 }
@@ -132,6 +131,13 @@
 }
 
 - (void)createTodo:(NSString *)todo withDueDate:(NSDate *)dueDate {
+    NSDictionary *item = @{@"text": todo,
+                           @"dueDate": dueDate};
+    [self.todos addObject:item];
+    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"todos"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self.tableView reloadData];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

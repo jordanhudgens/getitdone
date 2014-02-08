@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) UITextField *todoInput;
 @property (strong, nonatomic) UITextField *dueDateInput;
-@property (strong, nonatomic) NSDate *dueDate;
+@property (strong, nonatomic) UIDatePicker *datePicker;
 
 @end
 
@@ -66,10 +66,10 @@
     dueDateFrame.origin.y = CGRectGetMaxY(dueDateLabel.frame) + 5;
     self.dueDateInput.frame = dueDateFrame;
     
-    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
-    datePicker.datePickerMode = UIDatePickerModeDate;
-    [datePicker addTarget:self action:@selector(didChangeDate:) forControlEvents:UIControlEventValueChanged];
-    self.dueDateInput.inputView = datePicker;
+    self.datePicker = [[UIDatePicker alloc] init];
+    self.datePicker.datePickerMode = UIDatePickerModeDate;
+    [self.datePicker addTarget:self action:@selector(didChangeDate:) forControlEvents:UIControlEventValueChanged];
+    self.dueDateInput.inputView = self.datePicker;
     
     [self.view addSubview:self.dueDateInput];
 }
@@ -81,16 +81,19 @@
 }
 
 - (void)didTapDoneButton {
-    [self.delegate createTodo:self.todoInput.text withDueDate:self.dueDate];
+    [self.delegate createTodo:self.todoInput.text withDueDate:self.datePicker.date];
 }
 
 - (void)didTapCancelButton {
     [self.delegate didCancelCreatingNewTodo];
 }
 
-- (void)didChangeDate:(id)sender
-{
-    // waiting to be implemented
+- (void)didChangeDate:(UIDatePicker *)picker {
+   
+    NSDateFormatter  *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    
+    self.dueDateInput.text = [dateFormatter stringFromDate:self.datePicker.date];
 }
 
 @end
