@@ -26,7 +26,11 @@
         self.navigationItem.title = @"Get it done";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didTapAddButton)];
         
-        self.todos = [NSUserDefaults.standardUserDefaults objectForKey:@"todos"];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *doumentsDirectory = [paths objectAtIndex:0];
+        NSString *plistPath = [doumentsDirectory stringByAppendingPathComponent:@"todos.plist"];
+        self.todos = [NSMutableArray arrayWithContentsOfFile:plistPath];
         
         if (!self.todos) {
             self.todos = [[NSMutableArray alloc] init];
@@ -61,9 +65,11 @@
         NSString *input = [[alertView textFieldAtIndex:0] text];
         [self.todos addObject:input];
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.todos forKey:@"todos"];
-        [userDefaults synchronize];
+//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//        [userDefaults setObject:self.todos forKey:@"todos"];
+//        [userDefaults synchronize];
+        
+        
         
         [self.tableView reloadData];
         
@@ -95,11 +101,19 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
 	
-    cell.textLabel.text = self.todos[indexPath.row][@"text"];
+    NSDictionary *todo = self.todos[indexPath.row];
+    cell.textLabel.text = todo[@"text"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Due %@",
+                                 [dateFormatter stringFromDate:todo[@"dueDate"]]];
     
+    NSLog(@"%@", [NSString stringWithFormat:@"Due %@",
+                 [dateFormatter stringFromDate:todo[@"dueDate"]]]);
     return cell;
 }
 
@@ -120,13 +134,14 @@
         // Delete the row from the data source
         [self.todos removeObjectAtIndex:indexPath.row];
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.todos forKey:@"todos"];
-        [userDefaults synchronize];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *doumentsDirectory = [paths objectAtIndex:0];
+        NSString *plistPath = [doumentsDirectory stringByAppendingPathComponent:@"todos.plist"];
+        [self.todos writeToFile:plistPath atomically:YES];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
-    }   
+    }
  
 }
 
@@ -134,8 +149,13 @@
     NSDictionary *item = @{@"text": todo,
                            @"dueDate": dueDate};
     [self.todos addObject:item];
-    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"todos"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"todos"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *doumentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [doumentsDirectory stringByAppendingPathComponent:@"todos.plist"];
+    [self.todos writeToFile:plistPath atomically:YES];
     
     [self.tableView reloadData];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
